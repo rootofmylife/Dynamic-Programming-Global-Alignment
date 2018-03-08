@@ -1,7 +1,6 @@
 
-
-str1 = 'CTTAGA' # chuoi dai lam dong
-str2 = 'GTAA' # chuoi ngan lam cot
+str1 = 'GGGACAGGGGGAGCCCTATAATTGGACCTTCTGACTCAGTCTCTCACACTCGTCCTGGCTCTGTCTCTGTCCTTCCCTAGCTCTTTTATATAGAGACAGAGAAGTCTGGGATCCTTGAGTCCTAC' # chuoi dai lam dong
+str2 = 'GGGACAGATAATTGGACAAGTCTGGGATAGTCCTACTCCTTCTGACTCAGTCTCTCACACTCGTCCTGTTTAAGCCTAGCTCTTTTATATAGAGACAGAGAGCA' # chuoi ngan lam cot
 str3 = str1 # k + dau - nhu string 1
 str1 = '-' + str1
 str2 = '-' + str2
@@ -47,9 +46,8 @@ while(i != rows):
 ###########################
 arr_tb = []
 
-def traceback(matrix, r, c, str_tb = str(rows - 1) + str(cols - 1) + '.'):
+def traceback(matrix, r, c, str_tb = str(rows - 1) + '-' + str(cols - 1) + '.'):
     if r == 1 and c == 1:
-        
         arr_tb.append(str_tb)
         return
 
@@ -61,13 +59,13 @@ def traceback(matrix, r, c, str_tb = str(rows - 1) + str(cols - 1) + '.'):
     temp_dia = int(matrix[r][c]) + d
 
     if matrix[r - 1][c - 1] == str(temp_dia):
-        traceback(matrix, r - 1, c - 1, str_tb = str_tb + str(r - 1) + str(c - 1) + '.')
+        traceback(matrix, r - 1, c - 1, str_tb = str_tb + str(r - 1) + '-' + str(c - 1) + '.')
 
     if matrix[r - 1][c] == str(temp):
-        traceback(matrix, r - 1, c, str_tb = str_tb + str(r - 1) + str(c) + '.')
+        traceback(matrix, r - 1, c, str_tb = str_tb + str(r - 1) + '-' + str(c) + '.')
 
     if matrix[r][c - 1] == str(temp):
-        traceback(matrix, r, c - 1, str_tb = str_tb + str(r) + str(c - 1) + '.')
+        traceback(matrix, r, c - 1, str_tb = str_tb + str(r) + '-' + str(c - 1) + '.')
 
 traceback(matrix, rows - 1, cols - 1)
 
@@ -81,11 +79,13 @@ str_des = []
 for index in  range(len(arr_tb)):
     str_temp = ''
     for iter in range(len(arr_tb[index]) - 1):
-        x1 = int(arr_tb[index][iter][0])
-        y1 = int(arr_tb[index][iter][1])
+        iter_temp_1 = arr_tb[index][iter].split('-')
+        x1 = int(iter_temp_1[0])
+        y1 = int(iter_temp_1[1])
 
-        x2 = int(arr_tb[index][iter + 1][0])
-        y2 = int(arr_tb[index][iter + 1][1])
+        iter_temp_2 = arr_tb[index][iter + 1].split('-')
+        x2 = int(iter_temp_2[0])
+        y2 = int(iter_temp_2[1])
 
         if x1 - 1 == x2 and y1 - 1 == y2:
             str_temp = str_temp + matrix[0][y1]
@@ -95,8 +95,8 @@ for index in  range(len(arr_tb)):
 
 str_des = [s[::-1] for s in str_des]
 ####################
-for i in matrix:
-  print(i)
+# for i in matrix:
+#   print(i)
 
 print('\n\n\n\n')
 
